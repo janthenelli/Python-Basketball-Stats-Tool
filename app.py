@@ -119,7 +119,6 @@ def round_num(num, decimals=0):
     return int(num * multipler) / multipler
 
 
-
 if __name__ == '__main__':    
 
     players = clean_data(players)
