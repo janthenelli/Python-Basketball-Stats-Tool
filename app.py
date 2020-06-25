@@ -44,21 +44,33 @@ Select an option:
   2) Quit
 """)
     choice = input("")
-    if choice == '2':
-        exit()
-    elif choice == '1':
-        print("""\nSelect an option:
+    while True:
+        if choice == '1':
+            team_menu()
+        elif choice == '2':
+            exit()
+        else:
+            choice = input("Please select a valid choice.  ")
+    
+
+def team_menu():
+    print("""\nSelect an option:
   1) Panthers
   2) Bandits
   3) Warriors""")
     choice = input("")
-    if choice == '1':
-        display_team_stats(panthers)
-    elif choice == '2':
-        display_team_stats(bandits)
-    elif choice == '3':
-        display_team_stats(warriors)
-
+    while True:
+        if choice == '1':
+            display_team_stats(panthers)
+            break
+        elif choice == '2':
+            display_team_stats(bandits)
+            break
+        elif choice == '3':
+            display_team_stats(warriors)
+            break
+        else:
+            choice = input("Please select a valid choice.  ")
     cont = input("Would you like to continue? (yes/no) ")
     if cont.lower() == 'yes':
         main_menu()
