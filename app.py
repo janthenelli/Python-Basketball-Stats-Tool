@@ -1,8 +1,9 @@
 import constants
+import copy
 import random
 
-TEAMS = constants.TEAMS
-PLAYER_DATA = constants.PLAYERS
+TEAMS = copy.deepcopy(constants.TEAMS)
+PLAYER_DATA = copy.deepcopy(constants.PLAYERS)
 
 players = PLAYER_DATA
 num_players_team = len(PLAYER_DATA) / len(TEAMS)
@@ -22,16 +23,10 @@ def clean_data(data):
         player['guardians'] = player['guardians'].split(' and ')
     return data
 
-def balance_teams(team_a, team_b, team_c):
-    while len(team_a['players']) < num_players_team:
-        team_a['players'].append(experienced_players.pop(random.randint(0, len(experienced_players) - 1)))
-        team_a['players'].append(inexperienced_players.pop(random.randint(0, len(inexperienced_players) - 1)))
-    while len(team_b['players']) < num_players_team:
-        team_b['players'].append(experienced_players.pop(random.randint(0, len(experienced_players) - 1)))
-        team_b['players'].append(inexperienced_players.pop(random.randint(0, len(inexperienced_players) - 1)))
-    while len(team_c['players']) < num_players_team:
-        team_c['players'].append(experienced_players.pop(random.randint(0, len(experienced_players) - 1)))
-        team_c['players'].append(inexperienced_players.pop(random.randint(0, len(inexperienced_players) - 1)))
+def balance_teams(team):
+    while len(team['players']) < num_players_team:
+        team['players'].append(experienced_players.pop(random.randint(0, len(experienced_players) - 1)))
+        team['players'].append(inexperienced_players.pop(random.randint(0, len(inexperienced_players) - 1)))
 
 def main_menu():
     print("""\nBASKETBALL STATS TOOL
@@ -123,13 +118,16 @@ if __name__ == '__main__':
 
     players = clean_data(players)
 
+
     for player in players:
         if player['experience']:
             experienced_players.append(player)
         else:
             inexperienced_players.append(player)
 
-    balance_teams(panthers, bandits, warriors)
+    balance_teams(panthers)
+    balance_teams(bandits)
+    balance_teams(warriors)
 
     panthers['average height'] = round_num(calc_team_height(panthers), 1)
     bandits['average height'] = round_num(calc_team_height(bandits), 1)
